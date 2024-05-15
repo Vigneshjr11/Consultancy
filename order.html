@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        td.actions button {
+            cursor: pointer;
+            padding: 8px 12px;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+            border: none;
+            outline: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        td.actions button.update {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td.actions button.delete {
+            background-color: #f44336;
+            color: white;
+        }
+
+        td.actions button:hover {
+            filter: brightness(90%);
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] { 
+            background-color: #f14a60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4CAF50;
+        }
+
+        .delete-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: none;
+        }
+
+        .delete-popup h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #f44336; /* Red color for emphasis */
+        }
+
+        .delete-popup p {
+            margin-bottom: 20px;
+        }
+
+        .delete-popup button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .delete-popup button.delete-confirm {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .delete-popup button.cancel {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .delete-popup button:hover {
+            filter: brightness(90%);
+        }
+
+        .update-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: none;
+        }
+
+        .update-popup h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #4CAF50; /* Green color for emphasis */
+        }
+
+        .update-popup button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .update-popup button:hover {
+            filter: brightness(90%);
+        }
+
+        /* Search Box Styles */
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+            float: right;
+        }
+
+        .search-box input[type="text"] {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
+
+        .search-box button[type="submit"] {
+            background-color: #f14a60;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .search-box button[type="submit"]:hover {
+            background-color: #f14a60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Management</h1>
+        <form id="orderForm">
+            <label for="orderId">Order ID:</label>
+            <input type="text" id="orderId" name="orderId" required>
+
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company" required>
+
+            <label for="orderName">Order Name:</label>
+            <input type="text" id="orderName" name="orderName" required>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required>
+
+           <!-- Corrected HTML code with space between Start Date and End Date -->
+<label for="startDate">Start Date:</label>
+<input type="date" id="startDate" name="startDate" required>
+<br> <!-- Added line break for space -->
+<br> <!-- Added another line break for more space -->
+<label for="endDate">End Date:</label>
+<input type="date" id="endDate" name="endDate" required>
+
+<br>
+<br>
+
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+        <br>
+        <h2>Order List</h2>
+        <!-- Search Box -->
+        <div class="search-box">
+            <form id="searchForm">
+                <input type="text" id="searchInput" placeholder="Search by Order ID">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Company</th>
+                    <th>Order Name</th>
+                    <th>Quantity</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="orderList"></tbody>
+        </table>
+
+        <div class="delete-popup" id="deletePopup">
+            <h2>Delete Order</h2>
+            <p>Are you sure you want to delete this order?</p>
+            <button class="delete-confirm" id="deleteConfirmButton">Delete</button>
+            <button class="cancel" id="deleteCancelButton">Cancel</button>
+        </div>
+
+        <!-- Update Success Popup -->
+        <div class="update-popup" id="updatePopup">
+            <h2>Updated Successfully</h2>
+            <button class="ok" id="updateOkButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+    
+            try {
+                const button = document.getElementById('submitButton');
+                const orderId = button.dataset.orderId;
+    
+                let url = 'http://localhost:3000/orders';
+                let method = 'POST';
+    
+                if (orderId) {
+                    url += `/${orderId}`;
+                    method = 'PUT';
+                }
+    
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to add/update order');
+                }
+    
+                const result = await response.json();
+                console.log(result);
+                this.reset();
+                displayOrders();
+                showUpdateSuccessPopup(); // Show update success popup
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    
+        // Search Form Event Listener
+        document.getElementById('searchForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const searchInput = document.getElementById('searchInput').value.trim();
+            if (searchInput !== '') {
+                searchOrder(searchInput);
+            }
+        });
+    
+        async function searchOrder(orderId) {
+            try {
+                const response = await fetch(`http://localhost:3000/orders/${orderId}`);
+                const order = await response.json();
+                displaySearchedOrder(order);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Order not found.');
+            }
+        }
+    
+        async function displaySearchedOrder(order) {
+            const tableBody = document.getElementById('orderList');
+            tableBody.innerHTML = '';
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.orderId}</td>
+                <td>${order.company}</td>
+                <td>${order.orderName}</td>
+                <td>${order.quantity}</td>
+                <td>${order.startDate}</td>
+                <td>${order.endDate}</td>
+                <td class="actions">
+                    <button class="update" onclick="updateOrder('${order._id}', '${order.orderId}', '${order.company}', '${order.orderName}', '${order.quantity}', '${order.startDate}', '${order.endDate}')">Update</button>
+                    <button class="delete" onclick="openDeletePopup('${order._id}')">Delete</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+    
+        async function displayOrders() {
+            try {
+                const response = await fetch('http://localhost:3000/orders');
+                const orders = await response.json();
+                const tableBody = document.getElementById('orderList');
+                tableBody.innerHTML = '';
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.orderId}</td>
+                        <td>${order.company}</td>
+                        <td>${order.orderName}</td>
+                        <td>${order.quantity}</td>
+                        <td>${order.startDate}</td>
+                        <td>${order.endDate}</td>
+                        <td class="actions">
+                            <button class="update" onclick="updateOrder('${order._id}', '${order.orderId}', '${order.company}', '${order.orderName}', '${order.quantity}', '${order.startDate}', '${order.endDate}')">Update</button>
+                            <button class="delete" onclick="openDeletePopup('${order._id}')">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    
+        async function updateOrder(id, orderId, company, orderName, quantity, startDate, endDate) {
+            document.getElementById('orderId').value = orderId;
+            document.getElementById('company').value = company;
+            document.getElementById('orderName').value = orderName;
+            document.getElementById('quantity').value = quantity;
+            document.getElementById('startDate').value = startDate;
+            document.getElementById('endDate').value = endDate;
+            document.getElementById('submitButton').dataset.orderId = id;
+        }
+    
+        async function openDeletePopup(id) {
+            document.getElementById('deletePopup').style.display = 'block';
+            document.getElementById('deleteConfirmButton').onclick = function() {
+                deleteOrder(id);
+                document.getElementById('deletePopup').style.display = 'none';
+            };
+            document.getElementById('deleteCancelButton').onclick = function() {
+                document.getElementById('deletePopup').style.display = 'none';
+            };
+        }
+    
+        async function deleteOrder(id) {
+            try {
+                const response = await fetch(`http://localhost:3000/orders/${id}`, {
+                    method: 'DELETE'
+                });
+    
+                if (response.ok) {
+                    console.log('Order deleted successfully');
+                    displayOrders();
+                } else {
+                    throw new Error('Failed to delete order');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Function to show the update success popup
+        async function showUpdateSuccessPopup() {
+            document.getElementById('updatePopup').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('updatePopup').style.display = 'none';
+            }, 3000); // Popup disappears after 3 seconds
+        }
+
+        displayOrders();
+    </script>
+</body>
+</html>

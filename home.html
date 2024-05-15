@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Knits</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
+    <style>
+        /* CSS styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Dosis', sans-serif;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #ffffff;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logo img {
+            height: 70px;
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+        }
+
+        ul li {
+            margin-right: 20px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        ul li a:hover {
+            color: #f14a60;
+        }
+
+        /* Adjusted CSS for Hello Admin */
+        .navbar ul {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar ul li {
+            margin-right: 20px;
+        }
+
+        .navbar ul li:last-child {
+            margin-right: 0;
+        }
+
+        .navbar ul li:nth-last-child(2) {
+            margin-right: auto;
+        }
+
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Banner styles */
+        .banner {
+            background-image: url('https://u.cubeupload.com/1308/HBXND7FXoutput0.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 80px 100px; /* Adjusted padding to move text a bit higher */
+            text-align: left;
+        }
+
+        .banner h1 {
+            font-size: 120px; /* Increased font size by 20% */
+            margin-bottom: 20px;
+            /* Adding text stroke */
+            text-shadow: 2px 2px 2px #000000;
+        }
+
+        .banner h1 span {
+            color: #f14a60;
+        }
+
+        .banner h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            /* Adding text stroke */
+            text-shadow: 2px 2px 2px #000000;
+        }
+
+        .banner p {
+            font-size: 20px;
+            /* Adding text stroke */
+            text-shadow: 1px 1px 1px #000000;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 50px 0;
+            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+        }
+
+        .footer-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .footer-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .footer-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .footer-section p {
+            color: #666;
+            line-height: 20px;
+        }
+
+        /* Font for Hello Admin */
+        .hello-admin {
+            font-family: 'Arial', sans-serif; /* Change the font to Arial */
+            font-size: 18px; /* Adjust font size if needed */
+            color: #777; /* Adjust color if needed */
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="hero">
+    <div class="navbar">
+        <div class="logo">
+            <img src="https://www.kindpng.com/picc/m/704-7042342_lions-logo-png-colores-png-download-logo-lion.png" alt="logo">
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Manage</a>
+                <div class="dropdown-content">
+                    <a href="inventory.html">Inventory</a>
+                    <a href="employee.html">Employee</a>
+                    <a href="order.html">Order</a>
+                    <a href="customer.html">Customer</a>
+                </div>
+            </li>
+            &nbsp;&nbsp;&nbsp;
+            <li><a href="about.html">About</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li><a href="contact.html">Contact</a></li> <!-- New nav bar attribute -->
+        </ul>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ul>
+            <li class="hello-admin">Hello Admin</li>
+        </ul>
+        <div class="navbar-icons">
+            <img src="">
+            <img src="">
+            <img src="">
+        </div>
+    </div>
+    <div class="banner">
+        <br> <br>
+        <h1><span>Quality </span>Knits</h1>
+        <br> <br> <br>
+        <h3>Always fill your heart with joy</h3>
+        <p>Embedding design in Every thread</p>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer-section">
+        <h3>About</h3>
+        <p>Quality Knits is a leading provider of high-quality knitwear, offering a wide range of products to meet the needs of our customers.</p>
+    </div>
+    <div class="footer-section">
+        <h3>Services</h3>
+        <p>Our services include custom designs, fast delivery, and excellent customer support. Contact us today to learn more about how we can help you!</p>
+    </div>
+    <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@qualityknits.com</p>
+        <p>Phone: +1 (123) 456-7890</p>
+    </div>
+    <div class="footer-section">
+        <h3>Address</h3>
+        <p>123 Main Street</p>
+        <p>City, State, Zip Code</p>
+        <p>Country</p>
+    </div>
+</div>
+</body>
+</html>
